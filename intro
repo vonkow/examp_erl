@@ -1,0 +1,124 @@
+Erlang
+    General Purpose
+    Garbage-collected
+    Concurrent
+    Language and Runtime System
+    Features:
+        Functional
+        Strict Evaluation
+        Single Assignment
+        Dynamic Typing
+        Message Passing (Actor Model) Concurrency
+        Fault-Tolerant
+        "Let it crash!" philosophy
+    Concurrency Model:
+        No Threads! 
+        Lightweight Processes (similar to green threads)
+        No Shared State between Processes*
+    History:
+        Mid 80s:
+            Ericsson needed a language for running Telephone Switches
+            In-house language PLEX isn't cutting it
+            An investigative team was formed to explore options
+            LISP, Prolog, Parlog, etc were studied
+            Conclusion: A new language is needed.
+            1986-87
+                Joe Armstrong, Robert Verding, et al. begin work on Erlang
+            1988
+                Erlang gets installed on its first phone PABX
+            ... Erlang gets in the telecom field, but is relatively unknow outside the field.
+            1998 
+                Erlang gets Open Sourced
+            2000s:
+                Wings 3D
+                yaws
+                membase
+                rabbitMQ
+            2002: ejabberd
+            2005:
+                Couchdb first release
+            2008:
+                Facebook Chat debuts, written in Erlang
+
+            Today:
+                Erlang is gaining traction in the web programming world
+
+
+7.
+23.1.
+5+4.
+5-4.
+5*4.
+5/4.
+5 div 4.
+5 rem 4.
+atomic.
+longer_atom.
+'Also an atom? why_yes!'.
+"Stringy".
+{this, is, "A tuple"}.
+{me, too}.
+[i,am,a,list].
+[87,84,70].
+% this is a comment.
+
+A = 5.
+B = A+1.
+C = A+B.
+A = 4.
+
+P = point.
+P1 = {P, 10, 5}.
+{P, X, Y} = P1.
+
+L = [1,2,3].
+[L1, L2, L3] = L.
+[H | T] = L.
+[H1 | T1] = T.
+[H2 | T2] = T1.
+[H3 | T3] = T2.
+
+
+f().
+Times = fun(X, Y) -> X*Y end.
+Double = fun(X) - Times(X, 2) end.
+
+go through
+fac1
+fac2
+fac3
+fac4
+
+show map
+Double = fun(X) -> X*2 end.
+L1 = [1,2,3,4].
+L2 = map:map(Double, L1).
+L2 = lists:map(Double, L1).
+
+Concurrency:
+
+Recv = fun() ->
+    receive
+        M -> io:format("Got Message: ~w~n", [M])
+    end
+end.
+
+P = spawn(Recv).
+P ! Hi.
+
+svr1
+    svr1:ping1().
+    svr1:ping2().
+
+svr2
+    P = svr2:start().
+    svr2:msg(P, 100).
+    svr2:msg(P, total).
+
+svr3
+    P = svr3:start().
+    svr3:msg(P, 100).
+    svr3:msg(P, oops).
+    svr3:multi(P, 100).
+    svr3:msg(P, total).
+    svr3:msg(P, stop).
