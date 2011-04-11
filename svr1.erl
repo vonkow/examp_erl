@@ -1,20 +1,22 @@
 -module(svr1).
--export([ping1/0, ping2/0, pong2/1]).
+-export([start/0, msg/2]).
 
-ping1() ->
-    spawn(fun() -> pong1() end),
-    io:format("~w~n",[ping]).
+% A very simple loop server for calculating factorials
+% Usage: 
+%   P = svr1:start().
+%   svr1:msg(P, 100).
 
-pong1() ->
-    io:format("~w~n",[pinged]).
+start() -> spawn(fun() -> loop() end).
 
-ping2() ->
-    spawn(?MODULE, pong2, [self()]),
-    io:format("~w~n",[ping]),
+loop() ->
     receive
-        Pong -> io:format("~w~n",[Pong])
+        {From, Num} ->
+            From ! {Num, fac4:fac(Num)},
+            loop()
     end.
 
-pong2(From) ->
-    io:format("~w~n",[pinged]),
-    From ! ponged.
+msg(To, Msg) ->
+    To ! {self(), Msg},
+    receive
+        Reply -> Reply
+    end.

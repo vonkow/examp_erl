@@ -1,3 +1,27 @@
+Introduce erlang, general properties, history
+Shell examples:
+    Numbers
+    Atoms
+    Tuples
+    Lists
+    Variables
+        single assignment
+    Pattern Matching
+        packing/unpacking data
+        Lists Heads and Tails
+    Funs
+Sequential Examples
+    fac1, how we describe a factorial mathematically = how we do it in erlang
+    fac2, re-ordering using guards
+    fac3, error handling using _anon variables
+    fac4, tail call optimization & multi-arity functions
+    map, breif detour into map and list-processing
+Concurrent Examples
+    Shell example of spawning and messaging a function.
+    svr1, a simple loop server
+    svr2, adding state and spawning response processes
+    svr3, a more robust server and messager, multi request example.
+
 Erlang
     General Purpose
     Garbage-collected
@@ -43,6 +67,7 @@ Erlang
             Today:
                 Erlang is gaining traction in the web programming world
 
+Type this stuff in the interpreter:
 
 7.
 23.1.
@@ -89,7 +114,7 @@ fac2
 fac3
 fac4
 
-show map
+show map:
 Double = fun(X) -> X*2 end.
 L1 = [1,2,3,4].
 L2 = map:map(Double, L1).
@@ -104,11 +129,11 @@ Recv = fun() ->
 end.
 
 P = spawn(Recv).
-P ! Hi.
+P ! hi.
 
 svr1
-    svr1:ping1().
-    svr1:ping2().
+    P = svr1:start().
+    svr1:msg(P, 100).
 
 svr2
     P = svr2:start().
@@ -121,4 +146,7 @@ svr3
     svr3:msg(P, oops).
     svr3:multi(P, 100).
     svr3:msg(P, total).
-    svr3:msg(P, stop).
+    Total = svr3:msg(P, stop).
+    f().
+    P = svr3:start().
+    svr3:multi(P, 100).

@@ -1,6 +1,16 @@
 -module(svr3).
 -export([start/0, msg/2, multi/2]).
 
+% A more robust factorial loop server and messager.
+% Invalid arguments are ignored, the server may be remotely stopped
+% and the messager will time-out after 60 seconds with no reply.
+% A multi message function was added to simulate many concurrent calls.
+% Usage:
+%   P = svr3:start().
+%   svr3:msg(P, 100).
+%   svr3:multi(P, 1000).
+%   Total = svr3:msg(P, stop).
+
 start() -> spawn(fun() -> loop(0) end).
 
 loop(Count) ->
